@@ -127,10 +127,11 @@ class Productimport extends Module
                 'legend' => array(
                 'title' => $this->l('Import new products from CSV file'),
                 'icon' => 'icon-cogs',
+                'enctype' => "multipart/form-data",
                 ),
                 'input' => array(
                     array(
-                        'col' => 5,
+                        'col' => 7,
                         'type' => 'file',
                         'desc' => $this->l('Enter a valid csv file'),
                         'name' => 'PRODUCTIMPORT_CSV',
@@ -160,10 +161,9 @@ class Productimport extends Module
     protected function postProcess()
     {
         $default_lang = Configuration::get('PS_LANG_DEFAULT');
-        $archivo =  Tools::getValue('PRODUCTIMPORT_CSV');
-        $csv = $_FILE('products.csv');   
-        var_dump($csv);exit;
-   
+                
+        $csv =  Tools::getValue('PRODUCTIMPORT_CSV');
+     
         $fp = fopen($csv,"r");
         while ($data[] = fgetcsv ($fp, 1000, ",")) {
         }
@@ -200,7 +200,6 @@ class Productimport extends Module
             
             $product->update();
         }
-
     }
     
     /**
